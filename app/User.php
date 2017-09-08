@@ -26,4 +26,18 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function post(){
+        return $this->hasOne('App\Publication'); //,'anotherdata' si se necesita
+    }
+    public function posts(){
+        return $this->hasMany('App\Publication');
+    }
+
+    public function roles(){
+
+        return $this->belongsToMany('App\Role')->withPivot('created_at' );
+       // return $this->belongsToMany('App\Role', 'role_user', 'user_id','role_id'); en caso de tener nombres raros de tablas
+
+    }
 }

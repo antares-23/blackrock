@@ -1,6 +1,7 @@
 <?php
 
 use App\Publication;
+use App\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -142,4 +143,110 @@ Route::get('/', function () {
 //
 //    $post->save();
 //});
+//
+Route::get('/create', function (){
 
+    Publication::create(['title' => 'The screate method', 'publication'=>'This shist rocks!', 'is_admin'=>0]);
+});
+
+//Route::get('/update',function(){
+//    Publication::where('id',2)->update(['title'=>'nuevo titulo', 'publication'=>'Tiz Shit Rulz!']);
+//});
+
+//
+//Route::get('/delete', function () {
+//
+//    $post = Publication::find(6);
+//    $post->delete();
+//});
+
+
+//Route::get('/delete2', function () {
+//
+//    //Publication::destroy([4,5]);
+//    Publication::where('is_admin', 0)->delete();
+//});
+
+Route::get('/softdelete',function(){
+
+    Publication::find(9)->delete();
+
+});
+
+
+
+//Route::get('/readsoftdelete',function(){
+//
+////    $post= Publication::find(5);
+////    return $post;
+//
+//   // $post = Publication::withTrashed()->where('deleted_at','!=',null)->get();
+//    $post = Publication::onlyTrashed()->get();
+//    return $post;
+//
+//});
+//
+//
+//Route::get('/restore',function(){
+//
+//    Publication::withTrashed()->restore();
+//});
+//
+//Route::get('/forcedelete',function(){
+//
+//    Publication::onlyTrashed()->forceDelete();
+//});
+
+/*
+ *
+ * ELOQUENT RELATIONSHIPS
+ *
+ * */
+
+//one to one Relationship
+
+//Route::get('/user/posts/{id}/post',function($id){
+//
+//    return User::find($id)->post; //->title;
+//});
+//
+//
+//Route::get('post/{id}/user',function($id){
+//    return Publication::find($id)->user;
+//});
+
+//Route::get('/posts',function(){
+//
+//   $user =  User::find(1);
+//
+//   foreach ($user->posts as $post){
+//    echo $post->title;
+//    echo $post->publication."<br>";
+//
+//   }
+//});
+
+//Many to Many Relationships;
+
+//Route::get('/user/{id}/role',function($id){
+//
+//    $user = User::find($id)->roles()->orderBy('id','desc')->get();
+//
+//    return $user;
+//
+////    foreach($user->roles as $role){
+////        return $role;
+////    }
+//});
+
+
+//access the pivot/intermediate table
+
+Route::get('user/pivot',function(){
+
+    $user = User::find(1);
+
+    foreach ($user->roles as $role){
+        echo $role->pivot->created_at;
+    }
+});

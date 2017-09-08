@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePublicationsTable extends Migration
+class AddDeletedColumnToPost extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class CreatePublicationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('publications', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('title');
-            $table->integer('user_id')->unsigned();
-            $table->text('publication');
-            $table->timestamps();
+        Schema::table('publications', function (Blueprint $table) {
+            //
+            $table->softDeletes();
         });
     }
 
@@ -29,6 +26,9 @@ class CreatePublicationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('publications');
+        Schema::table('publications', function (Blueprint $table) {
+            //
+            $table->dropColumn('deleted_at');
+        });
     }
 }
