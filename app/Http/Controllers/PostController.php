@@ -30,7 +30,7 @@ class PostController extends Controller
     public function create()
     {
         //
-        return "create method!";
+        return view('posts.create');
     }
 
     /**

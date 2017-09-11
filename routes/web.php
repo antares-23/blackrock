@@ -2,6 +2,7 @@
 
 use App\Publication;
 use App\User;
+use App\Photo;
 
 /*
 |--------------------------------------------------------------------------
@@ -144,10 +145,10 @@ Route::get('/', function () {
 //    $post->save();
 //});
 //
-Route::get('/create', function (){
-
-    Publication::create(['title' => 'The screate method', 'publication'=>'This shist rocks!', 'is_admin'=>0]);
-});
+//Route::get('/create', function (){
+//
+//    Publication::create(['title' => 'The screate method', 'publication'=>'This shist rocks!', 'is_admin'=>0]);
+//});
 
 //Route::get('/update',function(){
 //    Publication::where('id',2)->update(['title'=>'nuevo titulo', 'publication'=>'Tiz Shit Rulz!']);
@@ -166,12 +167,12 @@ Route::get('/create', function (){
 //    //Publication::destroy([4,5]);
 //    Publication::where('is_admin', 0)->delete();
 //});
-
-Route::get('/softdelete',function(){
-
-    Publication::find(9)->delete();
-
-});
+//
+//Route::get('/softdelete',function(){
+//
+//    Publication::find(9)->delete();
+//
+//});
 
 
 
@@ -242,11 +243,94 @@ Route::get('/softdelete',function(){
 
 //access the pivot/intermediate table
 
-Route::get('user/pivot',function(){
+//Route::get('user/pivot',function(){
+//
+//    $user = User::find(1);
+//
+//    foreach ($user->roles as $role){
+//        echo $role->pivot->created_at;
+//    }
+//});
+//
+//Route::get('/user/country/{id}', function($id){
+//
+//    $country = \App\Country::find($id); //buscar por pais #4
+//    foreach ($country ->posts as $post){
+//        return $post->title;
+//    }
+//
+////    $user = User::find($id);
+////    foreach ($user ->posts as $post){
+////        return $post->title;
+////    }
+//
+//});
 
-    $user = User::find(1);
+//Route::get('user/photos', function (){
+////
+////    $user= User::find(1);
+////
+////        foreach ($user->photos as $photo){
+////            return $photo->path;
+////
+////    }
+//
+//    $post =  Publication::find(1);
+//
+//    foreach ($post->photos as $photo){
+//        return $photo;
+//    }
+//
+//});
 
-    foreach ($user->roles as $role){
-        echo $role->pivot->created_at;
-    }
-});
+//Route::get('/photo/{id}/post', function ($id){
+//    $photo = Photo::findOrFail($id);
+//
+//    return $photo -> imageable;
+//
+//});
+
+
+/*Polymorphic many to many*/
+//Route::get('/post/tag', function(){
+//    $post =Publication::find(1);
+//
+//    foreach ($post->tags as $tag){
+//        echo $tag->name;
+//    }
+//
+//
+//});
+//
+//Route::get('/video/tag', function(){
+//    $video =\App\Video::find(1);
+//
+//    foreach ($video->tags as $tag){
+//        echo $tag->name;
+//    }
+//
+//});
+//
+//Route::get('/tag/post', function(){
+//
+//    $tag= \App\Tag::find(2);
+//
+//    foreach ($tag->posts as $post){
+//        echo $post->title;
+//    }
+//
+//});
+////App\Publication::create(['title'=>'PHP post from tinker', 'content'=>'Php content from tinker']);
+//
+//App\User
+
+/*
+ * |-----------------------------------------------|
+ * Crud Application...
+ *
+ * */
+
+
+Route::resource('/post','PostController');
+
+

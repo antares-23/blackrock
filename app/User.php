@@ -40,4 +40,8 @@ class User extends Authenticatable
        // return $this->belongsToMany('App\Role', 'role_user', 'user_id','role_id'); en caso de tener nombres raros de tablas
 
     }
+
+    public function photos(){
+        return $this->morphMany('App\Photo', 'imageable');
+    }
 }
