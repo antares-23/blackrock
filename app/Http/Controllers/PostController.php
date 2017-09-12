@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Post;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -13,13 +14,16 @@ class PostController extends Controller
      */
 
 
-
-
-
     public function index()
     {
-        //
-        return "its working!";
+        //metodo 1
+        $posts = Post::all();
+        return view('posts.index', compact('posts'));
+
+        //metodo 2
+//        return $posts = Post::all();
+
+   //     dd($post = Post::all());
     }
 
     /**
@@ -41,7 +45,27 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //return $request->all();
+        //return $request->get('title');
+        //return $request->title;
+
+        //metodo 1:
+        Post::create($request->all());
+        return redirect('/posts');
+
+        //Metodo 2:
+        //$input = $request->all();
+        //$input['title'] = $request->title;
+        //Post::create($request->all());
+
+        //metodo 3
+//    $post = new Post;
+//    $post->title = $request->title;
+//    $post->save();
+
+
+
+
     }
 
     /**
@@ -53,7 +77,9 @@ class PostController extends Controller
     public function show($id)
     {
         //
-      //  return "show method!";
+      $posts= Post::findOrFail($id);
+      return view('posts.show',compact('posts'));
+
     }
 
     /**
@@ -64,7 +90,8 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $posts= Post::findOrFail($id);
+        return view('posts.edit', compact('posts'));
 
     }
 
@@ -77,7 +104,10 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+       // return "ok..";
+        $post= Post::findOrFail($id);
+        $post->update($request->all());
+        return redirect('posts/');
     }
 
     /**
@@ -89,6 +119,8 @@ class PostController extends Controller
     public function destroy($id)
     {
         //
+        $post= Post::whereId($id)->delete();
+        return redirect('/posts');
     }
 
 
